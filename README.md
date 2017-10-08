@@ -200,3 +200,109 @@ def public_function(x):
     """This does something really awesome."""
     return _make_it_awesome(x)
 ```
+
+## List Comprehensions
+
+Favor declarative code over procedural code (focus on the _what_, not the _how_).
+List comprehensions can help here.
+
+Yes:
+
+```python
+print(sum(i**2 for i in range(10)))
+```
+
+No:
+
+```python
+result = 0
+for i in range(10):
+    result += i**2
+print(result)
+```
+
+# Pet Peeves
+
+The below aren't exactly "style" issues, but when I'm reading, writing or reviewing code, they still come up often enough for me to consider them relevant.
+
+## Positional vs Keyword Arguments
+
+Favor keyword arguments unless it's extremely obvious what the positional arguments are.
+
+Yes:
+
+```python
+twitter_search('@obama', retweets=False, numtweets=20, popular=True)
+```
+
+No:
+
+```python
+twitter_search('@obama', False, 20, True)
+```
+
+Example stolen from [this presentation](https://youtu.be/OSGv2VnC0go?t=32m00s).
+
+## Avoid Functions Masquerading as Functions
+
+If your class only has two functions and one of them is a constructor, you may be dealing with a function masquerading as a class.
+
+Yes:
+
+```python
+def get(url):
+    # some relevant work here
+    return requests.get(url)
+
+body = get('http://mpenkov.github.io')
+```
+
+No:
+
+```python
+class Get(object):
+    def __init__(self, url):
+        self.url = url
+
+    def do(self):
+        # some relevant work here
+        return requests.get(url)
+
+body = Get('http://mpenkov.github.io').do()
+```
+
+## Don't Use Namespaces to Create Taxonomies
+
+> Flat is better than nested.
+
+Namespaces are for preventing name clashes.
+They are not for creating taxonomies.
+
+Yes:
+
+```python
+import muffin
+muf = muffin.find_muffin("Misha's favorite muffin")
+```
+
+No:
+
+```python
+import muffin.muffinfinder
+muf = muffin.muffinfinder.find_muffin("Misha's favorite muffin")
+```
+
+Example inspired by [this talk](https://youtu.be/o9pEzgHorH://youtu.be/o9pEzgHorH0).
+
+# Relevant Links
+
+Here are some great talks to listen to:
+
+- [Stop Writing Classes](https://youtu.be/o9pEzgHorH0)
+- [Transforming Code into Beautiful, Idiomatic Python](https://youtu.be/OSGv2VnC0go)
+- [How to Write Reusable Code](https://youtu.be/r9cnHO15YgU)
+- [Beyond PEP8](https://youtu.be/wf-BqAjZb8M)
+- [The Other Hard Problem](https://youtu.be/bg1wdbKBRKg)
+- [Jane Austen on PEP8](https://youtu.be/55gXwFviOuQ)
+
+Last but not least, [here](https://youtu.be/knMg6G9_XCg) is the talk that inspired me to write this "guide".
