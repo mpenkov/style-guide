@@ -49,7 +49,7 @@ For more about this, see [Beyond PEP8](https://www.youtube.com/watch?v=wf-BqAjZb
 
 ## Comments
 
-I prefer to avoid writing comments, and write code that can be understood them.
+I prefer to avoid writing comments, and write code that can be understood without them.
 Where they are absolutely necessary, comments should add value to the code, and be written in a way that doesn't interfere with the code.
 I start and end all my comments with a blank commented line.
 This forces me to think twice about adding useless one-liner comments.
