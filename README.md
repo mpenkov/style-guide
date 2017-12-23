@@ -60,7 +60,7 @@ Yes:
 ```python
 #
 # This is a comment.
-# After we do X, we need to do Y.
+# After we do X, we need to do Y, because otherwise Z will happen, which is bad.
 #
 foo = 'bar'
 foo.upper()
@@ -74,6 +74,12 @@ foo = 'bar'
 # And now we have to do Y.
 foo.upper()
 ```
+
+If your code _really_ need comments, ask yourself: can you rewrite it such that it doesn't?
+
+> Write code that is easy to understand; the more you do this, the fewer comments you will need.
+
+(from [The Practice of Programming](http://michael.penkov.id.au/blog/2017/12/24/practice.html))
 
 ## Imports
 
@@ -292,7 +298,85 @@ import muffin.muffinfinder
 muf = muffin.muffinfinder.find_muffin("Misha's favorite muffin")
 ```
 
-Example inspired by [this talk](https://youtu.be/o9pEzgHorH://youtu.be/o9pEzgHorH0).
+Example inspired by [this talk](https://youtu.be/o9pEzgHorH0).
+
+## Naming Things
+
+- Use active verbs for function and method names; use nouns for variable names.
+- Use descriptive names for globals, short names for locals.
+- Names should be informative, concise, memorable and pronouncible.
+- Avoid unnecessarily long names.  Clarity is often achieved through brevity.
+
+Yes:
+
+```python
+def is_odd(number):
+    return number % 2 == 1
+```
+
+No:
+
+```python
+def odd(x):
+    return x % 2 == 1
+```
+
+## Be Clear
+
+> The goal is to write clear code, not clever code.
+> The proper criterion is ease of understanding.
+
+(from [The Practice of Programming](http://michael.penkov.id.au/blog/2017/12/24/practice.html))
+
+## Be Natural
+
+Write statements in a natural order: make your code look like English.
+Avoid unnecessary negations.
+
+Yes:
+
+```python
+if not (0 < month <= 12):
+    raise ValueError
+```
+
+Yes:
+
+```python
+if month <= 0 or month > 12:
+    raise ValueError
+```
+
+No:
+
+```python
+if not (month >= 0 and month <= 12):
+    raise ValueError
+```
+
+## Be Helpful
+
+Error messages should state the form of valid input.
+
+Yes:
+
+```python
+if not (0 < month <= 12):
+    raise ValueError('month must be an integer between 1 and 12, inclusive')
+```
+
+No:
+
+```python
+if not (0 < month <= 12):
+    raise ValueError('bad month')
+```
+
+## Keep it Simple
+
+When dealing with conditionals, handle the easy cases first.
+Avoid nesting conditionals where possible.
+This removes significant burden for the reader.
 
 # Relevant Links
 
@@ -304,5 +388,6 @@ Here are some great talks to listen to:
 - [Beyond PEP8](https://youtu.be/wf-BqAjZb8M)
 - [The Other Hard Problem](https://youtu.be/bg1wdbKBRKg)
 - [Jane Austen on PEP8](https://youtu.be/55gXwFviOuQ)
+- [The Practice of Programming](http://michael.penkov.id.au/blog/2017/12/24/practice.html)
 
 Last but not least, [here](https://youtu.be/knMg6G9_XCg) is the talk that inspired me to write this "guide".
