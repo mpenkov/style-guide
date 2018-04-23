@@ -249,7 +249,7 @@ twitter_search('@obama', False, 20, True)
 
 Example stolen from [this presentation](https://youtu.be/OSGv2VnC0go?t=32m00s).
 
-## Avoid Functions Masquerading as Functions
+## Avoid Functions Masquerading as Class
 
 If your class only has two functions and one of them is a constructor, you may be dealing with a function masquerading as a class.
 
@@ -276,6 +276,8 @@ class Get(object):
 
 body = Get('http://mpenkov.github.io').do()
 ```
+
+From [Code Unto Others](https://youtu.be/jD0VJk9sOeY?t=21m14s).
 
 ## Don't Use Namespaces to Create Taxonomies
 
