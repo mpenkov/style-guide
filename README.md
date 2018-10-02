@@ -132,7 +132,7 @@ Yes:
 
 ```python
 def foo():
-    """This function returns 'bar', as you would expect it to.""" 
+    """This function returns 'bar', as you would expect it to."""
     return 'bar'
 ```
 
@@ -140,7 +140,7 @@ No:
 
 ```python
 def foo():
-    '''This function returns 'bar', as you would expect it to.''' 
+    '''This function returns 'bar', as you would expect it to.'''
     return "bar"
 ```
 
@@ -379,6 +379,90 @@ if not (0 < month <= 12):
 When dealing with conditionals, handle the easy cases first.
 Avoid nesting conditionals where possible.
 This removes significant burden for the reader.
+
+## Generators
+
+Python's [generators](https://wiki.python.org/moin/Generators) can help make your code more readable.
+
+Yes:
+
+```python
+def filter_odd(values):
+    for v in values:
+        if v % 2:
+            yield v
+
+values = range(100)
+odd_values = list(filter_odd(values))
+```
+
+Yes (for trivial cases only):
+
+```python
+values = range(100)
+odd_values = [v for v in values if v % 2]
+```
+
+No:
+
+```python
+def get_odd(values):
+    result = []
+    for v in values:
+        if v % 2:
+            result.append(v)
+    return result
+
+values = range(100)
+odd_values = get_odd(values)
+```
+
+## Streams
+
+When writing functions, think about making the arguments streams instead of paths to filenames, URLs, etc.
+This will make your functions more versatile easier to test without mocking.
+
+Yes:
+
+```python
+def calculate_average_line_length(fin):
+    total = nlines = 0
+    for line in fin:
+        total += len(line)
+        nlines += 1
+    return total / nlines
+
+
+def test():
+    buf = io.BytesIO("1\n22\n333\n")
+    assert calculate_average_line_length(buf) == 3
+
+
+print(calculate_average_line_length(sys.stdin))
+
+with open(filename) as fin:
+    print(calculate_average_line_length(fin))
+
+with gzip.GzipFile(filename) as fin:
+    print(calculate_average_line_length(fin))
+```
+
+No:
+
+```python
+def calculate_average_line_length(path):
+    with open(path) as fin:
+        total = nlines = 0
+        for line in fin:
+            total += len(line)
+            nlines += 1
+        return total / nlines
+
+
+@mock.patch("open")
+def test(mock_open):
+    ...
+```
 
 # Relevant Links
 
