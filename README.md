@@ -420,7 +420,7 @@ odd_values = get_odd(values)
 ## Streams
 
 When writing functions, think about making the arguments streams instead of paths to filenames, URLs, etc.
-This will make your functions more versatile easier to test without mocking.
+This will make your functions more versatile and easier to test without mocking.
 
 Yes:
 
